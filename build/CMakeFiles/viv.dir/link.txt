@@ -1,1 +1,0 @@
-/usr/bin/g++ -g CMakeFiles/viv.dir/src/Lexer.cpp.o CMakeFiles/viv.dir/src/main.cpp.o -o viv 

@@ -1,3 +1,0 @@
-/home/johan/Documents/Projects/ViversLang/build/CMakeFiles/viv.dir
-/home/johan/Documents/Projects/ViversLang/build/CMakeFiles/edit_cache.dir
-/home/johan/Documents/Projects/ViversLang/build/CMakeFiles/rebuild_cache.dir
