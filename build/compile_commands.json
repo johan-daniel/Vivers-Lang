@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/johan/Documents/Projects/ViversLang/build",
+  "command": "/usr/bin/g++   -g -std=gnu++20 -o CMakeFiles/viv.dir/src/Lexer.cpp.o -c /home/johan/Documents/Projects/ViversLang/src/Lexer.cpp",
+  "file": "/home/johan/Documents/Projects/ViversLang/src/Lexer.cpp",
+  "output": "CMakeFiles/viv.dir/src/Lexer.cpp.o"
+},
+{
+  "directory": "/home/johan/Documents/Projects/ViversLang/build",
+  "command": "/usr/bin/g++   -g -std=gnu++20 -o CMakeFiles/viv.dir/src/main.cpp.o -c /home/johan/Documents/Projects/ViversLang/src/main.cpp",
+  "file": "/home/johan/Documents/Projects/ViversLang/src/main.cpp",
+  "output": "CMakeFiles/viv.dir/src/main.cpp.o"
+}
+]
