@@ -28,7 +28,12 @@ int main(int argc, char const *argv[])
     file.close();
     
     Lexer lexer(src_code);
-    std::vector<Token> tokens = lexer.tokenize();
+    std::vector<Token*> tokens = lexer.tokenize();
+
+    for (Token* t : tokens) {
+        std::cout << t->toString() << std::endl;
+        free(t);
+    }
 
     return 0;
 }

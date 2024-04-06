@@ -5,17 +5,9 @@
 #include <optional>
 #include <vector>
 
-enum TokenType {
-    EXIT,
-    INT_LITERAL,
-    SEMI
-};
-
-
-struct Token {
-    TokenType type;
-    std::optional<std::string> value;
-};
+#include "tokens/Token.hpp"
+#include "tokens/Exit.hpp"
+#include "tokens/IntLit.hpp"
 
 
 class Lexer {
@@ -46,7 +38,7 @@ class Lexer {
          * Reads the plain text source code and parse it in tokens.
          * @return Vector of tokens
         */
-        std::vector<Token> tokenize();
+        std::vector<Token*> tokenize();
 
 
 

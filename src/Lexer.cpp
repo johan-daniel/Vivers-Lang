@@ -13,9 +13,9 @@ char Lexer::pop() {
     return src_code.at(cur++);
 }
 
-std::vector<Token> Lexer::tokenize() {
+std::vector<Token*> Lexer::tokenize() {
 
-    std::vector<Token> tokens;
+    std::vector<Token*> tokens;
     std::string wordBuffer;
 
     // Loop over all the characters in the source code
@@ -30,22 +30,22 @@ std::vector<Token> Lexer::tokenize() {
             // Read the rest of the word into the buffer
             while(peek().has_value() && std::isalnum(peek().value())) wordBuffer.push_back(pop());
 
-            std::cout << wordBuffer << std::endl;
+            // std::cout << wordBuffer << std::endl;
 
             // Add the correct token to the tokens list
-            if(wordBuffer == "exit") tokens.push_back({TokenType::EXIT});
+            if(wordBuffer == "exit") tokens.push_back(new ExitToken());
 
             wordBuffer.clear();
         }
 
         else if(std::isdigit(peek().value())) {
             while(peek().has_value() && std::isdigit(peek().value())) wordBuffer.push_back(pop());
-            tokens.push_back({TokenType::INT_LITERAL, wordBuffer});
+            tokens.push_back(new IntLitToken(wordBuffer));
             wordBuffer.clear();
         }
 
         else if(peek().value() == ';') {
-            tokens.push_back({TokenType::SEMI});
+            tokens.push_back(new SemiToken());
             pop();
         }
     }
