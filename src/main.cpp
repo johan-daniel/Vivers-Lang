@@ -26,13 +26,13 @@ int main(int argc, char const *argv[])
         src_code = sstream.str();
     }
     file.close();
-    
-    Lexer lexer(src_code);
-    std::vector<Token*> tokens = lexer.tokenize();
 
-    for (Token* t : tokens) {
-        std::cout << t->toString() << std::endl;
-        free(t);
+    Lexer lexer(src_code);
+    std::vector<Token> tokens = lexer.tokenize();
+
+    for(Token t : tokens)
+    {
+        std::cout << toString(t) << std::endl;
     }
 
     return 0;

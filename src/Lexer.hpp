@@ -1,14 +1,86 @@
 #ifndef __LEXER__HPP
 #define __LEXER__HPP
 
+#include <map>
 #include <string>
 #include <optional>
 #include <vector>
 
-#include "tokens/Token.hpp"
-#include "tokens/Exit.hpp"
-#include "tokens/IntLit.hpp"
+enum TokenType {
+    LPAREN,
+    RPAREN,
+    LBRACK,
+    RBRACK,
+    LBRACE,
+    RBRACE,
+    DIGIT,
+    PLUS,
+    MINUS,
+    DIV,
+    MUL,
+    RETURN,
+    ID,
+    EXIT,
+    SEMI,
+    COMMA,
+    EXCLAM,
+    GT,
+    LT,
+    GTE,
+    LTE,
+    EQ,
+    NEQ,
+    ASSIGN,
+    IF,
+    ELSE,
+    TRUE,
+    FALSE,
+    ILLEGAL,
+    FUNC
+};
 
+static std::map<TokenType, std::string> TokenTypeToString = {
+    {LPAREN, "LPAREN"},
+    {RPAREN, "RPAREN"},
+    {LBRACK, "LBRACK"},
+    {RBRACK, "RBRACK"},
+    {LBRACE, "LBRACE"},
+    {RBRACE, "RBRACE"},
+    {DIGIT, "DIGIT"},
+    {PLUS, "PLUS"},
+    {MINUS, "MINUS"},
+    {DIV, "DIV"},
+    {MUL, "MUL"},
+    {RETURN, "RETURN"},
+    {ID, "ID"},
+    {EXIT, "EXIT"},
+    {SEMI, "SEMI"},
+    {COMMA, "COMMA"},
+    {EXCLAM, "EXCLAM"},
+    {GT, "GT"},
+    {LT, "LT"},
+    {GTE, "GTE"},
+    {LTE, "LTE"},
+    {EQ, "EQ"},
+    {NEQ, "NEQ"},
+    {ASSIGN, "ASSIGN"},
+    {IF, "IF"},
+    {ELSE, "ELSE"},
+    {TRUE, "TRUE"},
+    {FALSE, "FALSE"},
+    {ILLEGAL, "ILLEGAL"},
+    {FUNC, "FUNC"},
+};
+
+struct Token {
+    TokenType token_type;
+    std::optional<std::string> lexeme;
+};
+
+inline std::string toString(Token t) {
+    std::string value = t.lexeme.has_value() ? t.lexeme.value() : "''";
+    return "{ " + TokenTypeToString[t.token_type] + ", Value: " + value + " }";
+}
 
 class Lexer {
 
@@ -38,7 +110,7 @@ class Lexer {
          * Reads the plain text source code and parse it in tokens.
          * @return Vector of tokens
         */
-        std::vector<Token*> tokenize();
+        std::vector<Token> tokenize();
 
 
 
