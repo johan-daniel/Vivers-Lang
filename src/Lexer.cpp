@@ -1,5 +1,6 @@
 #include "Lexer.hpp"
 #include <cctype>
+#include <optional>
 
 Lexer::Lexer(const std::string& src) : src_code(std::move(src)) {}
 
@@ -25,19 +26,10 @@ std::vector<Token> Lexer::tokenize() {
         // Ignore spaces
         if(std::isspace(value)) pop();
 
-        else if(value == ';')
+        // Parse single character tokens
+        else if(singleCharTokenMap.contains(value))
         {
-            tokens.push_back({ SEMI, std::nullopt });
-            pop();
-        }
-        else if(value == '{')
-        {
-            tokens.push_back({ LBRACE, std::nullopt });
-            pop();
-        }
-        else if(value == '}')
-        {
-            tokens.push_back({ RBRACE, std::nullopt });
+            tokens.push_back({ singleCharTokenMap.at(value), std::nullopt });
             pop();
         }
 
@@ -47,9 +39,16 @@ std::vector<Token> Lexer::tokenize() {
             while(peek().has_value() && std::isalnum(peek().value())) word_buffer.push_back(pop());
 
             if(word_buffer == "exit") tokens.push_back({ EXIT, std::nullopt });
+            if(word_buffer == "return") tokens.push_back({ EXIT, std::nullopt });
+            if(word_buffer == "if") tokens.push_back({ IF, std::nullopt });
+            if(word_buffer == "else") tokens.push_back({ ELSE, std::nullopt });
+            if(word_buffer == "true" || word_buffer == "false") tokens.push_back({ BOOL, word_buffer });
+            if(word_buffer == "function") tokens.push_back({ FUNC, std::nullopt });
+
             word_buffer.clear();
         }
 
+        // If the word starts with a digit
         else if(std::isdigit(value))
         {
             while(peek().has_value() && std::isdigit(peek().value())) word_buffer.push_back(pop());

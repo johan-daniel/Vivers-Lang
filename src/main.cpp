@@ -2,11 +2,16 @@
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <string>
 
 #include "Lexer.hpp"
 
+void run_console();
+
 int main(int argc, char const *argv[])
 {
+    run_console();
+
     if(argc < 2) {
         std::cerr << "Incorrect usage. Correct usage : viv {input.viv}" << std::endl;
         return 1;
@@ -36,4 +41,26 @@ int main(int argc, char const *argv[])
     }
 
     return 0;
+}
+
+
+void run_console()
+{
+    const std::string CONSOLE_PROMPT = ">> ";
+
+    bool finished = false;
+    std::string line;
+
+    while(!finished)
+    {
+        std::cout << CONSOLE_PROMPT;
+        std::getline(std::cin, line);
+        Lexer lexer(line);
+        std::vector<Token> tokens = lexer.tokenize();
+
+        for(Token t : tokens)
+        {
+            std::cout << toString(t) << std::endl;
+        }
+    }
 }

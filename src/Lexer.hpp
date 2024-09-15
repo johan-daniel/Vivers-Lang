@@ -24,6 +24,7 @@ enum TokenType {
     SEMI,
     COMMA,
     EXCLAM,
+    QUESTION,
     GT,
     LT,
     GTE,
@@ -33,10 +34,29 @@ enum TokenType {
     ASSIGN,
     IF,
     ELSE,
-    TRUE,
-    FALSE,
+    BOOL,
     ILLEGAL,
     FUNC
+};
+
+static std::map<char, TokenType> singleCharTokenMap = {
+    {';', SEMI},
+    {'{', LBRACE},
+    {'}', RBRACE},
+    {'(', LPAREN},
+    {')', RPAREN},
+    {'[', LBRACK},
+    {']', RBRACK},
+    {'<', LT},
+    {'>', GT},
+    {'+', PLUS},
+    {'-', MINUS},
+    {'/', DIV},
+    {'*', MUL},
+    {'=', ASSIGN},
+    {'!', EXCLAM},
+    {'?', QUESTION},
+    {',', COMMA}
 };
 
 static std::map<TokenType, std::string> TokenTypeToString = {
@@ -66,8 +86,7 @@ static std::map<TokenType, std::string> TokenTypeToString = {
     {ASSIGN, "ASSIGN"},
     {IF, "IF"},
     {ELSE, "ELSE"},
-    {TRUE, "TRUE"},
-    {FALSE, "FALSE"},
+    {BOOL, "BOOL"},
     {ILLEGAL, "ILLEGAL"},
     {FUNC, "FUNC"},
 };
