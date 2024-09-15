@@ -26,9 +26,43 @@ std::vector<Token> Lexer::tokenize() {
         // Ignore spaces
         if(std::isspace(value)) pop();
 
-        // Parse single character tokens
+        // Parse single and 2 characters tokens
         else if(singleCharTokenMap.contains(value))
         {
+            char value2 = peek(1).has_value() ? peek(1).value() : ' ';
+            if(value == '=')
+            {
+                if(value2 == '=')
+                {
+                    tokens.push_back({ EQ, std::nullopt });
+                    pop(); pop();
+                    continue;
+                }
+                if(value2 == '!')
+                {
+                    tokens.push_back({ NEQ, std::nullopt });
+                    pop(); pop();
+                    continue;
+                }
+            }
+            else if(value == '<')
+            {
+                if(value2 == '=')
+                {
+                    tokens.push_back({ LTE, std::nullopt });
+                    pop(); pop();
+                    continue;
+                }
+            }
+            else if(value == '>')
+            {
+                if(value2 == '=')
+                {
+                    tokens.push_back({ GTE, std::nullopt });
+                    pop(); pop();
+                    continue;
+                }
+            }
             tokens.push_back({ singleCharTokenMap.at(value), std::nullopt });
             pop();
         }
@@ -39,7 +73,7 @@ std::vector<Token> Lexer::tokenize() {
             while(peek().has_value() && std::isalnum(peek().value())) word_buffer.push_back(pop());
 
             if(word_buffer == "exit") tokens.push_back({ EXIT, std::nullopt });
-            if(word_buffer == "return") tokens.push_back({ EXIT, std::nullopt });
+            if(word_buffer == "return") tokens.push_back({ RETURN, std::nullopt });
             if(word_buffer == "if") tokens.push_back({ IF, std::nullopt });
             if(word_buffer == "else") tokens.push_back({ ELSE, std::nullopt });
             if(word_buffer == "true" || word_buffer == "false") tokens.push_back({ BOOL, word_buffer });
