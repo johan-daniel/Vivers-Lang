@@ -77,6 +77,7 @@ static std::map<TokenType, std::string> TokenTypeToString = {
     {SEMI, "SEMI"},
     {COMMA, "COMMA"},
     {EXCLAM, "EXCLAM"},
+    {QUESTION, "QUESTION"},
     {GT, "GT"},
     {LT, "LT"},
     {GTE, "GTE"},
@@ -121,6 +122,8 @@ class Lexer {
          * @return char
         */
         char pop();
+
+        std::optional<Token> parseDualCharTokens(const char& char1);
 
     public:
         Lexer(const std::string& src);
