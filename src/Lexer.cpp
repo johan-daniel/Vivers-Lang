@@ -1,7 +1,6 @@
 #include "Lexer.hpp"
 #include <cctype>
 #include <optional>
-#include <iostream>
 
 Lexer::Lexer(const std::string& src) : src_code(std::move(src)) {}
 
@@ -76,7 +75,8 @@ std::vector<Token> Lexer::tokenize() {
             else if(word_buffer == "return") tokens.push_back({ RETURN, std::nullopt });
             else if(word_buffer == "if") tokens.push_back({ IF, std::nullopt });
             else if(word_buffer == "else") tokens.push_back({ ELSE, std::nullopt });
-            else if(word_buffer == "true" || word_buffer == "false") tokens.push_back({ BOOL, word_buffer });
+            else if(word_buffer == "true") tokens.push_back({ TRUE, std::nullopt });
+            else if(word_buffer == "false") tokens.push_back({FALSE, std::nullopt});
             else if(word_buffer == "function") tokens.push_back({ FUNC, std::nullopt });
             else tokens.push_back({ ID, word_buffer });
 

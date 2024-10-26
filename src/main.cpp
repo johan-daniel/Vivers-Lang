@@ -7,23 +7,33 @@
 #include "Lexer.hpp"
 
 void run_console();
+void run_file(std::string);
+
+inline void error(int line, std::string err) { 
+    std::cerr << "Error on line " << line << " : " << err << std::endl; 
+    exit(65);
+}
 
 int main(int argc, char const *argv[])
 {
-    run_console();
+    // if(argc < 2) {
+    //     std::cerr << "Incorrect usage. Correct usage : viv {input.viv}" << std::endl;
+    //     return 1;
+    // }
+    if(argc == 2) run_file(argv[1]);
+    else run_console();
 
-    if(argc < 2) {
-        std::cerr << "Incorrect usage. Correct usage : viv {input.viv}" << std::endl;
-        return 1;
-    }
+    return 0;
+}
 
-    if(std::filesystem::path(argv[1]).extension() != ".viv") {
+void run_file(std::string file_path) {
+    if(std::filesystem::path(file_path).extension() != ".viv") {
         std::cerr << "Wrong file given. I can only understand .viv files." << std::endl;
-        return 1;
+        exit(1);
     }
 
     // Read the source file content
-    std::ifstream file(argv[1]);
+    std::ifstream file(file_path);
     std::stringstream sstream;
     std::string src_code;
     if(file.is_open()) {
@@ -35,12 +45,7 @@ int main(int argc, char const *argv[])
     Lexer lexer(src_code);
     std::vector<Token> tokens = lexer.tokenize();
 
-    for(Token t : tokens)
-    {
-        std::cout << toString(t) << std::endl;
-    }
-
-    return 0;
+    for(Token t : tokens) t.to_string();
 }
 
 
@@ -58,9 +63,6 @@ void run_console()
         Lexer lexer(line);
         std::vector<Token> tokens = lexer.tokenize();
 
-        for(Token t : tokens)
-        {
-            std::cout << toString(t) << std::endl;
-        }
+        for(Token t : tokens) t.to_string();
     }
 }
