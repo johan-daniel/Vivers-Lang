@@ -66,6 +66,15 @@ std::vector<Token> Lexer::tokenize() {
             pop();
         }
 
+        // Parse String literal
+        else if(value == '"') {
+            pop();
+            while(peek().has_value() && peek().value() != '"') word_buffer.push_back(pop());
+            tokens.push_back({ STRING, word_buffer} );
+            word_buffer.clear();
+            pop();
+        }
+
         // If the word starts with a letter
         else if(std::isalpha(value))
         {
@@ -104,6 +113,8 @@ std::vector<Token> Lexer::tokenize() {
             word_buffer.clear();
         }
     }
+
+    tokens.push_back({END, std::nullopt});
 
     return tokens;
 }

@@ -78,7 +78,8 @@ static std::map<TokenType, std::string> TokenTypeToString = {
     {FALSE, "FALSE"},
     {ILLEGAL, "ILLEGAL"},
     {FUNC, "FUNC"},
-    {END, "EOF"}
+    {END, "EOF"},
+    {STRING, "STRING"}
 };
 
 struct Token {
