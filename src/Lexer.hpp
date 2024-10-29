@@ -28,7 +28,7 @@ class Lexer {
         */
         char pop();
 
-        std::optional<Token> parseDualCharTokens(const char& char1);
+        std::optional<Token> parseDualCharTokens(const char& char1, int line);
 
     public:
         Lexer(const std::string& src);

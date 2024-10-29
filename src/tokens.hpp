@@ -10,7 +10,7 @@ enum TokenType {
     // Single character tokens
     LPAREN, RPAREN, LBRACK, RBRACK, LBRACE, RBRACE,
     DIV, MUL, PLUS, MINUS, SEMI, COMMA, EXCLAM,
-    QUESTION, GT, LT, ASSIGN,
+    QUESTION, GT, LT, ASSIGN, COLON,
 
     // 2 character tokens
     GTE, LTE, EQ, NEQ, OR, AND,
@@ -20,7 +20,9 @@ enum TokenType {
 
     // Keywords
     RETURN, EXIT, IF, ELSE, FUNC,
-    TRUE, FALSE,
+    TRUE, FALSE, STR, INT, FLOAT,
+    DOUBLE, LONG, SHORT, BOOL,
+    CHAR,
 
 
     ILLEGAL, END
@@ -43,7 +45,8 @@ static std::map<char, TokenType> singleCharTokenMap = {
     {'=', ASSIGN},
     {'!', EXCLAM},
     {'?', QUESTION},
-    {',', COMMA}
+    {',', COMMA},
+    {':', COLON}
 };
 
 static std::map<TokenType, std::string> TokenTypeToString = {
@@ -79,7 +82,15 @@ static std::map<TokenType, std::string> TokenTypeToString = {
     {ILLEGAL, "ILLEGAL"},
     {FUNC, "FUNC"},
     {END, "EOF"},
-    {STRING, "STRING"}
+    {STRING, "STRING_LIT"},
+    {STR, "STRING"},
+    {INT, "INT"},
+    {FLOAT, "FLOAT"},
+    {DOUBLE, "DOUBLE"},
+    {LONG, "LONG"},
+    {BOOL, "BOOL"},
+    {CHAR, "CHAR"},
+    {COLON, "COLON"}
 };
 
 struct Token {
@@ -92,9 +103,5 @@ struct Token {
     }
 };
 
-// inline std::string toString(Token t) {
-//     std::string value = t.lexeme.has_value() ? t.lexeme.value() : "''";
-//     return "{ " + TokenTypeToString[t.token_type] + " at line " + std::to_string(t.line) + ", Value: " + value + " }";
-// }
 
 #endif

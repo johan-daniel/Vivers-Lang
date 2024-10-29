@@ -42,6 +42,8 @@ void run_file(std::string file_path) {
     }
     file.close();
 
+    std::cout << src_code << std::endl;
+
     Lexer lexer(src_code);
     std::vector<Token> tokens = lexer.tokenize();
 
